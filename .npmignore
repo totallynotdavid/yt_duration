@@ -9,3 +9,7 @@ jest.config.js
 .nvmrc
 .env
 .eslintrc.json
+.gitignore
+.prettierrc
+.prettierignore
+pnpm-lock.yaml
