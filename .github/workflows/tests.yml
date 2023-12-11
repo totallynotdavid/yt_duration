@@ -1,6 +1,6 @@
 name: 🚓 Tests
 
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -8,13 +8,13 @@ jobs:
     environment: production
 
     steps:
-    - uses: pnpm/action-setup@v2
-      with:
-        version: 8
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: pnpm i
-    - name: Run Jest
-      run: pnpm test
-      env:
-        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run Jest
+        run: pnpm test
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
