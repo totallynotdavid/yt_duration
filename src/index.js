@@ -4,10 +4,10 @@ const youtube_api_key = process.env.YOUTUBE_API_KEY // eslint-disable-line no-un
 /**
  * Retrieves the length of a YouTube video.
  * @param {string} videoId - The YouTube video ID.
- * @param {string} format - The desired format for the video length ('seconds', 'minutes', 'hours').
- * @returns {Promise<number>} The length of the video in the specified format.
+ * @param {string} format - The desired format for the video length ('seconds', 'minutes', 'hours', 'human-readable').
+ * @returns {Promise<string|number>} The length of the video in the specified format.
  */
-async function getVideoLength(videoId, format = "seconds") {
+async function getVideoLength(videoId, format = "human-readable") {
   try {
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${youtube_api_key}&fields=items(contentDetails(duration))&part=contentDetails`
     const response = await fetch(url)
@@ -28,8 +28,8 @@ async function getVideoLength(videoId, format = "seconds") {
 /**
  * Converts ISO 8601 duration to the desired format.
  * @param {string} duration - The ISO 8601 duration string.
- * @param {string} format - The desired format ('seconds', 'minutes', 'hours').
- * @returns {number} The converted duration.
+ * @param {string} format - The desired format ('seconds', 'minutes', 'hours', 'human-readable').
+ * @returns {string|number} The converted duration.
  */
 function convertDuration(duration, format) {
   const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/)
@@ -43,8 +43,31 @@ function convertDuration(duration, format) {
       return totalSeconds / 60
     case "hours":
       return totalSeconds / 3600
+    case "human-readable":
+      return formatDurationHumanReadable(hours / 3600, minutes / 60, seconds)
     default:
       return totalSeconds
+  }
+}
+
+/**
+ * Formats the duration in a human-readable format.
+ * The format adapts based on the duration (e.g., "HH:MM:SS", "MM:SS", or "SS segundos").
+ * @param {number} hours - The number of hours.
+ * @param {number} minutes - The number of minutes.
+ * @param {number} seconds - The number of seconds.
+ * @returns {string} The formatted duration.
+ */
+function formatDurationHumanReadable(hours, minutes, seconds) {
+  const pad = (num) => num.toString().padStart(2, "0")
+  if (hours >= 1) {
+    return `${pad(Math.floor(hours))}:${pad(Math.floor(minutes % 60))}:${pad(
+      seconds,
+    )}`
+  } else if (minutes >= 1) {
+    return `${pad(Math.floor(minutes))}:${pad(seconds)}`
+  } else {
+    return `${seconds} segundos`
   }
 }
 
