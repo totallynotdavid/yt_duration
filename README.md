@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/yt_duration_fetcher.svg)](https://www.npmjs.com/package/yt_duration_fetcher) ![yt_duration_fetcher 0.0.1](https://img.shields.io/badge/yt_duration_fetcher-0.0.1-brightgreen.svg)
+[![npm](https://img.shields.io/npm/v/yt_duration.svg)](https://www.npmjs.com/package/yt_duration) ![yt_duration 0.0.1](https://img.shields.io/badge/yt_duration-0.0.1-brightgreen.svg)
 
 # YouTube Video Length Fetcher
 
@@ -17,7 +17,7 @@ This package provides a simple and efficient way to fetch the length of a YouTub
 To install the package, run the following command in your project directory:
 
 ```bash
-npm install yt_duration_fetcher
+npm install yt_duration
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ npm install yt_duration_fetcher
 Here's how you can use this package in your project:
 
 ```javascript
-const { getVideoLength } = require("yt_duration_fetcher")
+const { getVideoLength } = require("yt_duration")
 
 // Fetch video length in seconds
 getVideoLength("your-video-id").then((durationInSeconds) => {
