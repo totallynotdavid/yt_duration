@@ -25,22 +25,22 @@ npm install yt_duration_fetcher
 Here's how you can use this package in your project:
 
 ```javascript
-const { getVideoLength } = require("yt_duration_fetcher");
+const { getVideoLength } = require("yt_duration_fetcher")
 
 // Fetch video length in seconds
 getVideoLength("your-video-id").then((durationInSeconds) => {
-  console.log("Duration in seconds:", durationInSeconds);
-});
+  console.log("Duration in seconds:", durationInSeconds)
+})
 
 // Fetch video length in minutes
 getVideoLength("your-video-id", "minutes").then((durationInMinutes) => {
-  console.log("Duration in minutes:", durationInMinutes);
-});
+  console.log("Duration in minutes:", durationInMinutes)
+})
 
 // Fetch video length in hours
 getVideoLength("your-video-id", "hours").then((durationInHours) => {
-  console.log("Duration in hours:", durationInHours);
-});
+  console.log("Duration in hours:", durationInHours)
+})
 ```
 
 ## API Reference
