@@ -1,0 +1,20 @@
+name: 🚓 Tests
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: pnpm i
+    - name: Run Jest
+      run: pnpm test
+      env:
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
