@@ -1,5 +1,5 @@
-require("dotenv").config();
-const youtube_api_key = process.env.YOUTUBE_API_KEY; // eslint-disable-line no-undef
+require("dotenv").config()
+const youtube_api_key = process.env.YOUTUBE_API_KEY // eslint-disable-line no-undef
 
 /**
  * Retrieves the length of a YouTube video.
@@ -9,19 +9,19 @@ const youtube_api_key = process.env.YOUTUBE_API_KEY; // eslint-disable-line no-u
  */
 async function getVideoLength(videoId, format = "seconds") {
   try {
-    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${youtube_api_key}&fields=items(contentDetails(duration))&part=contentDetails`;
-    const response = await fetch(url);
-    const data = await response.json();
+    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${youtube_api_key}&fields=items(contentDetails(duration))&part=contentDetails`
+    const response = await fetch(url)
+    const data = await response.json()
 
     if (!data.items || data.items.length === 0) {
-      throw new Error("Video not found");
+      throw new Error("Video not found")
     }
 
-    const duration = data.items[0].contentDetails.duration;
-    return convertDuration(duration, format);
+    const duration = data.items[0].contentDetails.duration
+    return convertDuration(duration, format)
   } catch (error) {
-    console.error("Error fetching video length:", error);
-    throw error;
+    console.error("Error fetching video length:", error)
+    throw error
   }
 }
 
@@ -32,22 +32,22 @@ async function getVideoLength(videoId, format = "seconds") {
  * @returns {number} The converted duration.
  */
 function convertDuration(duration, format) {
-  const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-  const hours = (parseInt(match[1]) || 0) * 3600;
-  const minutes = (parseInt(match[2]) || 0) * 60;
-  const seconds = parseInt(match[3]) || 0;
-  const totalSeconds = hours + minutes + seconds;
+  const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/)
+  const hours = (parseInt(match[1]) || 0) * 3600
+  const minutes = (parseInt(match[2]) || 0) * 60
+  const seconds = parseInt(match[3]) || 0
+  const totalSeconds = hours + minutes + seconds
 
   switch (format) {
     case "minutes":
-      return totalSeconds / 60;
+      return totalSeconds / 60
     case "hours":
-      return totalSeconds / 3600;
+      return totalSeconds / 3600
     default:
-      return totalSeconds;
+      return totalSeconds
   }
 }
 
 module.exports = {
   getVideoLength,
-};
+}
