@@ -1,0 +1,11 @@
+node_modules
+examples
+coverage
+__tests__
+.devcontainer
+.github
+.vscode
+jest.config.js
+.nvmrc
+.env
+.eslintrc.json
