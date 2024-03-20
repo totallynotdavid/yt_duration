@@ -1,6 +1,6 @@
 {
   "name": "yt_duration",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fetch the length of a YouTube video in a readable format",
   "main": "src/index.js",
   "scripts": {

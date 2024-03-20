@@ -1,5 +1,21 @@
 require("dotenv").config()
-const youtube_api_key = process.env.YOUTUBE_API_KEY // eslint-disable-line no-undef
+
+// Retrieve all environment variables that start with "YOUTUBE_API_KEY"
+const apiKeys = Object.entries(process.env) // eslint-disable-line no-undef
+  .filter(([key]) => key.startsWith("YOUTUBE_API_KEY"))
+  .map(([, value]) => value)
+
+let currentApiKeyIndex = 0
+
+/**
+ * Returns the next API key in the rotation.
+ * @returns {string} The next API key.
+ */
+function getNextApiKey() {
+  const apiKey = apiKeys[currentApiKeyIndex]
+  currentApiKeyIndex = (currentApiKeyIndex + 1) % apiKeys.length
+  return apiKey
+}
 
 /**
  * Retrieves the length of a YouTube video.
@@ -9,7 +25,8 @@ const youtube_api_key = process.env.YOUTUBE_API_KEY // eslint-disable-line no-un
  */
 async function getVideoLength(videoId, format = "human-readable") {
   try {
-    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${youtube_api_key}&fields=items(contentDetails(duration))&part=contentDetails`
+    const apiKey = getNextApiKey()
+    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&fields=items(contentDetails(duration))&part=contentDetails`
     const response = await fetch(url)
     const data = await response.json()
 
